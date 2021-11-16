@@ -50,7 +50,7 @@ def main(time_list_str, value_list_str):
     try:
         value_int_list = [int(float(i)) for i in value_list]
     except IOError:
-        print "Error: values is invalid"
+        print("Error: values is invalid")
         value_int_list = [int(float(i)) for i in value_list.split('\\n')]
 
     s = make_summary_str(time_list, value_int_list)
