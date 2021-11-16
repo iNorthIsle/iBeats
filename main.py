@@ -46,7 +46,12 @@ def main(time_list_str, value_list_str):
     value_list = parse_ios_str_to_list(value_list_str)
     print(value_list)
     print(time_list)
-    value_int_list = [int(float(i)) for i in value_list]
+
+    try:
+        value_int_list = [int(float(i)) for i in value_list]
+    except IOError:
+        print "Error: values is invalid"
+        value_int_list = [int(float(i)) for i in value_list.split('\\n')]
 
     s = make_summary_str(time_list, value_int_list)
     replace_readme_comments("README.md", s, "my_heart_rate")
