@@ -28,7 +28,8 @@ def replace_readme_comments(file_name, comment_str, comments_name):
 
 
 def parse_ios_str_to_list(list_str):
-    l = list_str.splitlines()
+    l = list_str.split(' ')
+    print(l)
     # filter the empty value
     return [i for i in l if i]
 
@@ -43,22 +44,27 @@ def make_summary_str(time_list, value_list):
 def main(time_list_str, value_list_str):
     time_list = parse_ios_str_to_list(time_list_str)
     value_list = parse_ios_str_to_list(value_list_str)
-    value_list = [int(float(i)) for i in value_list]
+    print(value_list)
+    print(time_list)
+    value_int_list = [int(float(i)) for i in value_list]
 
-    s = make_summary_str(time_list, value_list)
+    s = make_summary_str(time_list, value_int_list)
     replace_readme_comments("README.md", s, "my_heart_rate")
-
+    print(s)
     # generate heart rate svg and save
     h = Heart(os.path.join(OUT_FOLDER, "heart.svg"))
-    h.set_values(value_list)
-    h.make_heart_svg()
+    print(value_int_list)
 
+    h.set_values(value_int_list)
+    h.make_heart_svg()
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("time_list_str", help="time_list_str")
     parser.add_argument("value_list_str", help="value_list_str")
     options = parser.parse_args()
+    print(options.time_list_str)
+    print(options.value_list_str)
     main(
         options.time_list_str,
         options.value_list_str,
